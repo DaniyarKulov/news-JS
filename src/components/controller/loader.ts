@@ -1,12 +1,19 @@
+
+
+interface Resp {
+	endpoint: string,
+	options: string
+	}
+
 class Loader {
-    constructor(baseLink, options) {
-        this.baseLink = baseLink;
-        this.options = options;
+    constructor(public  baseLink: string, public  options: string) {
+        // this.baseLink = baseLink;
+        // this.options = options;
     }
 
     getResp(
         { endpoint, options = {} },
-        callback = () => {
+        callback = () =>{
             console.error('No callback for GET response');
         }
     ) {
@@ -19,7 +26,6 @@ class Loader {
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
-
         return res;
     }
 
@@ -34,7 +40,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
+    load(method: string, endpoint: string, callback: { (): void; (arg0: string): string; }, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

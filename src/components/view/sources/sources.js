@@ -13,7 +13,6 @@ class Sources {
 
             fragment.append(sourceClone);
         });
-
         document.querySelector('.sources').append(fragment);
     }
 }
