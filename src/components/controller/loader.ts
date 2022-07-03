@@ -1,14 +1,9 @@
-
-
-interface Resp {
-	endpoint: string,
-	options: string
-	}
+interface Endpoint{
+	call(): void
+}
 
 class Loader {
     constructor(public  baseLink: string, public  options: string) {
-        // this.baseLink = baseLink;
-        // this.options = options;
     }
 
     getResp(
@@ -20,7 +15,9 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: {
+	 json(): string; ok: string; status: number; statusText: string | undefined; 
+}) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -29,7 +26,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
+    makeUrl(options: {}, endpoint: string) {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
