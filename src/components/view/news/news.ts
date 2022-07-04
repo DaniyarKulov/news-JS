@@ -12,6 +12,26 @@ description: string,
 url: string
 }
 
+
+// interface INews{
+// 	status: string,
+// 	totalResults: number,
+// 	articles: INewsItem[]
+// }
+// interface INewsItem{
+// 	source:{
+// 	id: string,
+// 	name: string
+// 	}
+// 	author: string,
+// 	title: string,
+// 	description: string,
+// 	url: string,
+// 	urlToImage: string,
+// 	publishedAt: string,
+// 	content: string
+// }
+
 class News {
     draw (data: NewsItem[]): void{
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
