@@ -1,31 +1,27 @@
 import './sources.css';
-
-interface SourcesItem{
-	name: string,
-	id: string,
-	
-	}
-	
+import {ISources} from '../../../types/index'
 
 class Sources {
-    draw(data: SourcesItem[]):void {
-        const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
+  draw(data: ISources[]) {        
+      
+    const fragment = document.createDocumentFragment();
+    const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
-        data.forEach((item: SourcesItem) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement ;
+    data.forEach((item) => {            
+        
+      const sourceClone = sourceItemTemp.content.cloneNode(true) as DocumentFragment;
+      const sourseItemName = sourceClone.querySelector('.source__item-name') as HTMLElement;
+      sourseItemName.textContent = item.name;
 
-			const itemName =  sourceClone.querySelector('.source__item-name') as HTMLElement;
-			itemName.textContent = item.name;
-       
-			const itemId = sourceClone.querySelector('.source__item') as HTMLElement;
-			itemId.setAttribute('data-source-id', item.id);
-            fragment.append(sourceClone);
-        });
+      const sourceItem = sourceClone.querySelector('.source__item') as HTMLElement;
+      sourceItem.setAttribute('data-source-id', item.id);
 
-		const sources =  document.querySelector('.sources') as HTMLElement;;
-		sources.append(fragment);
-    }
+      fragment.append(sourceClone);
+    });
+
+    const sourceBtns = document.querySelector('.sources') as HTMLElement;
+    sourceBtns.append(fragment);
+  }
 }
 
 export default Sources;
